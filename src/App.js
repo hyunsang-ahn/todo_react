@@ -37,6 +37,16 @@ const App = () => {
   ]);
   // 고윳값으로 사용될 아이디임
   // ref를 사용하여 변수담기
+
+  const onToggle = useCallback(
+    id => {
+      setTodos(
+        todos.map(todo => todo.id === id ? {
+           ...todo, checked: !todo.checked
+        } : todo, ),
+      )
+    },[todos]
+  )
   const nextId = useRef(7);
 
   const onInsert = useCallback(
@@ -66,7 +76,7 @@ const App = () => {
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove}/>
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
     </TodoTemplate>
   );
 };
